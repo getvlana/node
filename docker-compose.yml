@@ -1,0 +1,15 @@
+# TOKEN=<enroll token> docker compose up -d
+services:
+  vlana-node:
+    image: ghcr.io/getvlana/node:latest
+    build: .
+    network_mode: host        # the node listens on PORT of the server itself
+    restart: unless-stopped
+    environment:
+      TOKEN: ${TOKEN:-}
+      PORT: ${PORT:-443}
+      SNI: ${SNI:-dl.google.com}
+    volumes:
+      - vlana:/etc/vlana      # keys and node id; keep it and the node keeps its identity
+volumes:
+  vlana:

@@ -1,0 +1,9 @@
+#cloud-config
+# A Vlana node on a fresh server, with nothing to type over SSH.
+# Paste this as user data when you create the server and put your enroll token in place of TOKEN
+# (go.vlana.app → Nodes → Add a node). Works on Ubuntu 22.04+ and Debian 12+.
+#   Hetzner Cloud: Create server → Cloud config
+#   DigitalOcean:  Create Droplet → Advanced options → Add initialization scripts
+#   Vultr:         Deploy → Cloud-Init User-Data
+runcmd:
+  - [sh, -c, "curl -fsSL https://go.vlana.app/install.sh | PORT=443 bash -s TOKEN > /var/log/vlana-install.log 2>&1"]
